@@ -21,10 +21,10 @@ stock = db['stock']
 def ordenSalmon ():
 
     print('Las opciones de salmones estan enumeradas correspondientemente desde el 1 al 3:\n1.- Atlantico\t2.- Nordico\t3.- Pacifico\n ')
-    salmon = int(input('Eliga el numero correspondiente del salmon: '))
+    salmon = input('Eliga el numero correspondiente del salmon: ')
 
-    if salmon == 1:
-        print('El precio del Salmon atlantico por kilo es: $5000')
+    if salmon == '1':
+        print('El precio del Salmon Atlantico por kilo es: $5000')
         kilo1= int(input('Cuantos kilos necesita?: '))
 
         totalKilo1= 5000*kilo1     
@@ -42,7 +42,7 @@ def ordenSalmon ():
         totalKilo2= 7000*kilo2 
         costo2 = 4500
         ventas.insert_one({'Salmon':'Nordico', 'Monto':totalKilo2}).inserted_id
-        ganancias.insert_one({'Salmon':'Atlantico', 'Costo':costo2, 'Ganancia': totalKilo2 - costo2}).inserted_id
+        ganancias.insert_one({'Salmon':'Nordico', 'Costo':costo2, 'Ganancia': totalKilo2 - costo2}).inserted_id
         
     if salmon == 3:
         
@@ -53,7 +53,7 @@ def ordenSalmon ():
         costo3 = 1500
 
         ventas.insert_one({'Salmon':'Pacifico', 'Monto':totalKilo3}).inserted_id
-        ganancias.insert_one({'Salmon':'Atlantico', 'Costo':costo3, 'Ganancia': totalKilo3 - costo3}).inserted_id
+        ganancias.insert_one({'Salmon':'Pacifico', 'Costo':costo3, 'Ganancia': totalKilo3 - costo3}).inserted_id
 
     else:
         print('ERROR. Numero ingresado invalido. Orden cancelada')
@@ -64,38 +64,41 @@ def ordenSalmon ():
 input
 
 def usuario():
-    ingreso = int(input('Para iniciar como administrador ingrese 1. Para iniciar como vendedor ingrese 2 '))
-    if ingreso == 1:
+    ingreso = input('Para iniciar como administrador ingrese 1. Para iniciar como vendedor ingrese 2 ')
+    if ingreso == '1':
         print('Bienvenido estimado administrador.')
         print('Eliga la opcion correspondiente\nPara añadir una compra de salmon ingrese 1')
-        print('Para reporte de pedidos ingrese 2\tPara editar el stock y disponibilidad ingrese 3')
+        print('Para reporte de pedidos ingrese 2\nPara editar el stock y disponibilidad ingrese 3')
 
-        crud = int(input('Porfavor ingrese numero correspondinte: '))
+        crud = input('Porfavor ingrese numero correspondinte a las opciones: ')
 
-        if crud == 1:
+        if crud == '1':
             ordenSalmon()
 
-        elif crud == 2:
-            print('Que reporte necesita? : Opcion 1: Pedidos. Opcion 2: Ganancias')
-            reporte = int(input('Ingrese numero opcion correspondiente: '))
+        elif crud == '2':
+            print('Estimado administrador, que reporte necesita? : Opcion 1: Pedidos. Opcion 2: Ganancias')
+            reporte = input('Porfavor ingrese numero correspondinte a las opciones: ')
 
-            if reporte == 1:
+            if reporte == '1':
                 reporteVentas = ventas.find({}) 
                 for x in reporteVentas:       #Recorre en todos los documentos 1 en 1 
                     print(x)     
 
-            elif reporte == 2:
+            elif reporte == '2':
                 reporteGanancias = ganancias.find({})
                 for x in reporteGanancias:
                     print(x)
                    
         elif crud == 3:
+            print('Estimado administrador, de que salmon necesitar editar el stock y disponibilidad')
+            print('Opcion 1: Atlantico. Opcion 2: Nordico. Opcion 3: Pacifico')
+
+            editar = input('Porfavor ingrese numero correspondinte a las opciones: ')
             
-            actualizar = ventas.update_one
 
         
-    elif ingreso == 2:
-        print('Bienvenido estimado vendedor/')
+    elif ingreso == '2':
+        print('Bienvenido estimado vendedor.')
         ordenSalmon()
     
     else:
