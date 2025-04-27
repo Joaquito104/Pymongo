@@ -1,32 +1,18 @@
-import pymongo
 from System import Users
-print('Bienvenido.')
 
+usuarios = Users.usuario()
+
+print('Bienvenido.')
 print ("Iniciando Seccion")
 
 while True:
 
-    Privilegios= Users.usuario()
-    if Privilegios == 1:
+    usuarios()
+    continuar = input('Desea continuar [s/n]: ')
 
-
-        continuar1 = print("Desea continuar?: [s/N]")
-        if continuar1.lower() == 's':
-            continue
-        else:
-            break
-        
-    elif Privilegios == 2:
-
-
-        continuar2 = print("Desea continuar?: [s/N]")
-        if continuar2.lower() == 's':
-            continue
-        else:
-            break
-
-        #print(coll.count_documents({}))
-    
-
+    if continuar.lower() == 's':
+        continue
     else:
-        print("Error. Ingrese los numeros correspondiente")
+        break
+
+print('Cerrando seccion...')
