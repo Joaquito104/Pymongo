@@ -1,17 +1,20 @@
-from System import Users
-usuarios = Users.usuario()
+import Users
 
 print('Bienvenido.')
-print ("Iniciando Seccion")
 
-while True:
+inicio = input('Desea iniciar? [s/N]: ')
+if inicio == 's':
 
-    usuarios()
-    continuar = input('Desea continuar [s/n]: ')
+    print ("Iniciando Seccion")
 
-    if continuar.lower() == 's':
-        continue
-    else:
-        break
+    while True:
 
-print('Cerrando seccion...')
+        usuarios = Users.usuario()
+        continuar = input('[s/n]: ')
+
+        if continuar.lower() == 's':
+            continue
+        else:
+            print('Cerrando seccion...')
+            break
+
