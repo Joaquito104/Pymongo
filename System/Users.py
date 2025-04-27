@@ -9,7 +9,6 @@ Ganacias: Atlancico: $5000, Nordico: $7000, Pacifico: $3000
 
 """
 import pymongo
-
 server = pymongo.MongoClient('localhost', 27017)
 
 #Datos server db = acme, colecciones = Ventas , Disponibilidad, Ganancias

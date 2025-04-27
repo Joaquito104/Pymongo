@@ -1,20 +1,20 @@
 import Users
 
-print('Bienvenido.')
+def main():
 
-inicio = input('Desea iniciar? [s/N]: ')
-if inicio == 's':
+    print('Bienvenido.')
+    inicio = input('Desea iniciar? [s/N]: ')
 
-    print ("Iniciando Seccion")
+    if inicio.lower() == 's':
+        print("Iniciando Sesión")
 
-    while True:
+        while True:
+            Users.usuario()
+            continuar = input('Desea continuar [s/n]: ')
 
-        usuarios = Users.usuario()
-        continuar = input('[s/n]: ')
+            if continuar.lower() != 's':
+                print('Cerrando sesión...')
+                break
 
-        if continuar.lower() == 's':
-            continue
-        else:
-            print('Cerrando seccion...')
-            break
-
+if __name__ == "__main__":
+    main()
