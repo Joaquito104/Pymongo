@@ -4,7 +4,7 @@ Usuarios: vendedor (seller), administrador (admin)
 
 vendedor: 1 a 3 tipos,  en caso de querer el mismo tipo y quilo => venta separada 
 
-Costos: Atalantico: $3000, Nordico: $4500', Pacifico: $1500
+Costos: Atlantico: $3000, Nordico: $4500', Pacifico: $1500
 Ganacias: Atlancico: $5000, Nordico: $7000, Pacifico: $3000
 
 """
@@ -30,8 +30,8 @@ def ordenSalmon ():
         totalKilo1= 5000*kilo1     
         costo1 = 3000
 
-        ventas.insert_one({'Salmon':'Atlantico', 'Monto':totalKilo1}).inserted_id
-        ganancias.insert_one({'Salmon':'Atlantico', 'Costo':costo1, 'Ganancia': totalKilo1 - costo1}).inserted_id
+        ventas.insert_one({'Salmon':'Atlantico', 'Cantidad Kilos': kilo1 ,'Monto':totalKilo1}).inserted_id
+        ganancias.insert_one({'Salmon':'Atlantico','Cantidad Kilos vendidos': kilo1 ,'Costo':costo1, 'Ganancia': totalKilo1 - costo1}).inserted_id
        
 
     elif salmon == '2':
@@ -41,8 +41,8 @@ def ordenSalmon ():
 
         totalKilo2= 7000*kilo2 
         costo2 = 4500
-        ventas.insert_one({'Salmon':'Nordico', 'Monto':totalKilo2}).inserted_id
-        ganancias.insert_one({'Salmon':'Nordico', 'Costo':costo2, 'Ganancia': totalKilo2 - costo2}).inserted_id
+        ventas.insert_one({'Salmon':'Nordico','Cantidad Kilos': kilo2 ,'Monto':totalKilo2}).inserted_id
+        ganancias.insert_one({'Salmon':'Nordico','Cantidad Kilos vendidos': kilo2 ,'Costo':costo2, 'Ganancia': totalKilo2 - costo2}).inserted_id
         
     elif salmon == '3':
         
@@ -52,16 +52,16 @@ def ordenSalmon ():
         totalKilo3= 3000*kilo3 
         costo3 = 1500
 
-        ventas.insert_one({'Salmon':'Pacifico', 'Monto':totalKilo3}).inserted_id
-        ganancias.insert_one({'Salmon':'Pacifico', 'Costo':costo3, 'Ganancia': totalKilo3 - costo3}).inserted_id
+        ventas.insert_one({'Salmon':'Pacifico','Cantidad Kilos': kilo3 ,'Monto':totalKilo3}).inserted_id
+        ganancias.insert_one({'Salmon':'Pacifico','Cantidad Kilos vendidos': kilo3 ,'Costo':costo3, 'Ganancia': totalKilo3 - costo3}).inserted_id
 
     else:
-        print('Error 1. Numero ingresado invalido. Orden cancelada')
+        print('Error . Numero ingresado invalido. Orden cancelada')
 
 
 #Usuarios
 def usuario():
-    ingreso = input('Para iniciar como administrador ingrese 1. Para iniciar como vendedor ingrese 2 ')
+    ingreso = input('Para iniciar como administrador ingrese 1. Para iniciar como vendedor ingrese 2. ')
     if ingreso == '1':
         print('Bienvenido estimado administrador.')
         print('Eliga la opcion correspondiente\nPara añadir una compra de salmon ingrese 1')
@@ -86,26 +86,23 @@ def usuario():
                 for x in reporteGanancias:
                     print(x)
                    
-        elif crud == 3:
+        elif crud == '3':
             print('Estimado administrador, de que salmon necesitar editar el stock y disponibilidad')
             print('Opcion 1: Atlantico. Opcion 2: Nordico. Opcion 3: Pacifico')
 
             editar = input('Porfavor ingrese numero correspondinte a las opciones: ')
             
             if editar == '1':
-                nuevoStock1 = input('Ingrese el numero con el cual se modificara el stock: ')       #Crud : Update
-                nuevoStock1 = int
-                stock.update_one({"Salmon":'Atlantico'},{"$set":{"stock":nuevoStock1}})
+                nuevoStock1 = int(input('Ingrese el numero con el cual se modificara el stock: '))       #Crud : Update
+                stock.update_one({"Salmon":'Atlantico'},{"$set":{"Stock":nuevoStock1}}).matched_count()
 
-            if editar == '2':
-                nuevoStock2 = input('Ingrese el numero con el cual se modificara el stock: ')
-                nuevoStock2 = int
-                stock.update_one({"Salmon":'Atlantico'},{"$set":{"stock":nuevoStock2}})
+            elif editar == '2':
+                nuevoStock2 = int(input('Ingrese el numero con el cual se modificara el stock: '))
+                stock.update_one({"Salmon":'Nordico'},{"$set":{"Stock":nuevoStock2}}).matched_count()
 
-            if editar == '3':
-                nuevoStock3 = input('Ingrese el numero con el cual se modificara el stock: ')
-                nuevoStock3 = int
-                stock.update_one({"Salmon":'Atlantico'},{"$set":{"stock":nuevoStock3}})
+            elif editar == '3':
+                nuevoStock3 = int(input('Ingrese el numero con el cual se modificara el stock: '))
+                stock.update_one({"Salmon":'Pacifico'},{"$set":{"Stock":nuevoStock3}}).matched_count()
 
             else: 
                 print('Error. Cancelando accion')          
