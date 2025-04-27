@@ -4,43 +4,56 @@ Usuarios: vendedor (seller), administrador (admin)
 
 vendedor: 1 a 3 tipos,  en caso de querer el mismo tipo y quilo => venta separada 
 
+Costos: Atalantico: $3000, Nordico: $4500', Pacifico: $1500
+Ganacias: Atlancico: $5000, Nordico: $7000, Pacifico: $3000
+
 """
 import pymongo
 
 server = pymongo.MongoClient('localhost', 27017)
 
-#Datos server db = acme, collection = Ventas
+#Datos server db = acme, colecciones = Ventas , Disponibilidad, Ganancias
 db = server['Acme']    
-coll = db['Ventas']
-
+ventas = db['ventas']
+ganancias = db['ganancias']
+stock = db['stock']
 #Opcion Ordenes
-def OrdenSalmon ():
+def ordenSalmon ():
 
     print('Las opciones de salmones estan enumeradas correspondientemente desde el 1 al 3:\n1.- Atlantico\t2.- Nordico\t3.- Pacifico\n ')
     salmon = int(input('Eliga el numero correspondiente del salmon: '))
 
     if salmon == 1:
-        print('El precio del Salmon atlantico por kilo es: $5000 con un costo de $3000')
+        print('El precio del Salmon atlantico por kilo es: $5000')
         kilo1= int(input('Cuantos kilos necesita?: '))
 
-        costoXtotal1= 5000*kilo1 + 3000
-        coll.insert_one({'Salmon':'Atlantico', 'Costo':costoXtotal1}).inserted_id
-        
+        totalKilo1= 5000*kilo1     
+        costo1 = 3000
+
+        ventas.insert_one({'Salmon':'Atlantico', 'Monto':totalKilo1}).inserted_id
+        ganancias.insert_one({'Salmon':'Atlantico', 'Costo':costo1, 'Ganancia': totalKilo1 - costo1}).inserted_id
+       
+
     if salmon == 2:
 
-        print('El precio del Salmon Nordico por kilo es: $7000 con un costo de $4500')
+        print('El precio del Salmon Nordico por kilo es: $7000 ')
         kilo2= int(input('Cuantos kilos necesita?: '))
 
-        costoXtotal2= 7000*kilo2 + 4500
-        coll.insert_one({'Salmon':'Nordico', 'Costo':costoXtotal2}).inserted_id
+        totalKilo2= 7000*kilo2 
+        costo2 = 4500
+        ventas.insert_one({'Salmon':'Nordico', 'Monto':totalKilo2}).inserted_id
+        ganancias.insert_one({'Salmon':'Atlantico', 'Costo':costo2, 'Ganancia': totalKilo2 - costo2}).inserted_id
         
     if salmon == 3:
         
-        print('El precio del Salmon Pacifico por kilo es: $3000 con un costo de $1500') 
+        print('El precio del Salmon Pacifico por kilo es: $3000') 
         kilo3= int(input('Cuantos kilos necesita?: '))
 
-        costoXtotal3= 3000*kilo3 + 1500
-        coll.insert_one({'Salmon':'Pacifico', 'Costo':costoXtotal3}).inserted_id
+        totalKilo3= 3000*kilo3 
+        costo3 = 1500
+
+        ventas.insert_one({'Salmon':'Pacifico', 'Monto':totalKilo3}).inserted_id
+        ganancias.insert_one({'Salmon':'Atlantico', 'Costo':costo3, 'Ganancia': totalKilo3 - costo3}).inserted_id
 
     else:
         print('ERROR. Numero ingresado invalido. Orden cancelada')
@@ -51,5 +64,33 @@ def OrdenSalmon ():
 input
 
 def usuario():
-    pass
+    ingreso = int(input('Para iniciar como administrador ingrese 1. Para iniciar como vendedor ingrese 2 '))
+    if ingreso == 1:
+        print('Bienvenido estimado administrador.')
+        print('Eliga la opcion correspondiente\nPara añadir una compra de salmon ingrese 1')
+        print('Para reporte de pedidos ingrese 2\tPara editar el stock y disponibilidad ingrese 3')
+
+        crud = int(input('Porfavor ingrese numero correspondinte: '))
+
+        if crud == 1:
+            ordenSalmon()
+
+        elif crud == 2:
+            reporte = coll.find({}) 
+            for x in reporte:       #Recorre en todos los documentos 1 en 1 
+                print(x)
+        
+        elif crud == 3:
+            actualizar = coll.update_one
+
+        
+    elif ingreso == 2:
+        print('Bienvenido estimado vendedor/')
+        ordenSalmon()
+    
+    else:
+        print('Error. Cancelando inicio de seccion')
+
+
+usuario()
 
