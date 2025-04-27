@@ -76,12 +76,22 @@ def usuario():
             ordenSalmon()
 
         elif crud == 2:
-            reporte = coll.find({}) 
-            for x in reporte:       #Recorre en todos los documentos 1 en 1 
-                print(x)
-        
+            print('Que reporte necesita? : Opcion 1: Pedidos. Opcion 2: Ganancias')
+            reporte = int(input('Ingrese numero opcion correspondiente: '))
+
+            if reporte == 1:
+                reporteVentas = ventas.find({}) 
+                for x in reporteVentas:       #Recorre en todos los documentos 1 en 1 
+                    print(x)     
+
+            elif reporte == 2:
+                reporteGanancias = ganancias.find({})
+                for x in reporteGanancias:
+                    print(x)
+                   
         elif crud == 3:
-            actualizar = coll.update_one
+            
+            actualizar = ventas.update_one
 
         
     elif ingreso == 2:
