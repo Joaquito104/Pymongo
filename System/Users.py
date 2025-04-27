@@ -16,7 +16,7 @@ server = pymongo.MongoClient('localhost', 27017)
 db = server['Acme']    
 ventas = db['ventas']
 ganancias = db['ganancias']
-stock = db['stock']
+stock = db['Stock']
 #Opcion Ordenes
 def ordenSalmon ():
 
@@ -85,6 +85,9 @@ def usuario():
                 reporteGanancias = ganancias.find({})
                 for x in reporteGanancias:
                     print(x)
+            
+            else: 
+                print('Error. Cancelando accion')
                    
         elif crud == '3':
             print('Estimado administrador, de que salmon necesitar editar el stock y disponibilidad')
@@ -94,15 +97,30 @@ def usuario():
             
             if editar == '1':
                 nuevoStock1 = int(input('Ingrese el numero con el cual se modificara el stock: '))       #Crud : Update
-                stock.update_one({"Salmon":'Atlantico'},{"$set":{"Stock":nuevoStock1}}).matched_count()
+                resultados1 = stock.update_one({"Salmon":"Atlantico"},{"$set":{"Stock":nuevoStock1}})
 
+                if resultados1.matched_count > 0:
+                    print("Stock actualizado correctamente.")
+                else:
+                    print("No se encontró el salmón para actualizar.")
+                
             elif editar == '2':
                 nuevoStock2 = int(input('Ingrese el numero con el cual se modificara el stock: '))
-                stock.update_one({"Salmon":'Nordico'},{"$set":{"Stock":nuevoStock2}}).matched_count()
+                resultados2 = stock.update_one({"Salmon":"Nordico"},{"$set":{"Stock":nuevoStock2}})
+
+                if resultados2.matched_count > 0:
+                    print("Stock actualizado correctamente.")
+                else:
+                    print("No se encontró el salmón para actualizar.")
 
             elif editar == '3':
                 nuevoStock3 = int(input('Ingrese el numero con el cual se modificara el stock: '))
-                stock.update_one({"Salmon":'Pacifico'},{"$set":{"Stock":nuevoStock3}}).matched_count()
+                resultados3 = stock.update_one({"Salmon":"Pacifico"},{"$set":{"Stock":nuevoStock3}})
+
+                if resultados3.matched_count > 0:
+                    print("Stock actualizado correctamente.")
+                else:
+                    print("No se encontró el salmón para actualizar.")                
 
             else: 
                 print('Error. Cancelando accion')          
