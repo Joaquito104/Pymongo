@@ -34,7 +34,7 @@ def ordenSalmon ():
         ganancias.insert_one({'Salmon':'Atlantico', 'Costo':costo1, 'Ganancia': totalKilo1 - costo1}).inserted_id
        
 
-    if salmon == '2':
+    elif salmon == '2':
 
         print('El precio del Salmon Nordico por kilo es: $7000 ')
         kilo2= int(input('Cuantos kilos necesita?: '))
@@ -44,7 +44,7 @@ def ordenSalmon ():
         ventas.insert_one({'Salmon':'Nordico', 'Monto':totalKilo2}).inserted_id
         ganancias.insert_one({'Salmon':'Nordico', 'Costo':costo2, 'Ganancia': totalKilo2 - costo2}).inserted_id
         
-    if salmon == '3':
+    elif salmon == '3':
         
         print('El precio del Salmon Pacifico por kilo es: $3000') 
         kilo3= int(input('Cuantos kilos necesita?: '))
